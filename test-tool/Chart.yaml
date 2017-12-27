@@ -1,3 +1,8 @@
-description: A Helm chart for test client
-name: test-client
+name: testclient
+home: https://www.test.com/
 version: 1.0
+description: A Helm chart for test client.
+maintainers:
+  - Yue Wang
+details:
+  This is a helm package for qa test purposes.
