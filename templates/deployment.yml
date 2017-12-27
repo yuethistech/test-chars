@@ -1,0 +1,41 @@
+kind: Deployment
+apiVersion: extensions/v1beta1
+metadata:
+  name: testclient
+  labels:
+    group: qa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      group: qa
+  template:
+    metadata:
+      labels:
+        group: qa
+    spec:
+      volumes:
+        - name: client-hosts         
+          configMap:           
+            name: test-client-cfg
+      imagePullSecrets:
+      - name: nexus.viperbj.net
+      containers:
+        - name: testclient
+          image: 'nexus.viperbj.net/vex_ft_jmeter:latest'
+          lifecycle:
+            postStart:
+              exec:
+                command: ["/bin/sh", "-c", "cat /test/hosts >> /etc/hosts"]
+          ports:  
+          - containerPort: 8099  
+            name: jenkins  
+            protocol: TCP  
+          - containerPort: 5900  
+            name: vnc  
+            protocol: TCP 
+          volumeMounts:
+            - name: client-hosts
+              mountPath: /test
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always

@@ -1,0 +1,4 @@
+apiVersion: v1
+description: A Helm chart for test client
+name: test-client
+version: 1.0

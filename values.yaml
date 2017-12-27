@@ -1,0 +1,16 @@
+# Default values for vex-client-view.
+# This is a YAML-formatted file.
+name: testclient
+pod:
+  replicas: 1
+container:
+  image:
+    name: nexus.viperbj.net/vex_ft_jmeter:latest
+    tag: 1.0
+  port:
+    manifest: 9393
+    appstatus: 8080
+    healthCheck: 8081
+  limit:
+    cpu: 250m
+    memory: 2Gi
